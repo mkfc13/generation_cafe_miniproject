@@ -1,0 +1,10 @@
+Latte
+Cuppaccino
+Mocha
+Coca Cola
+sprite
+7up
+pepsi
+Fanta
+Espresso
+Americano
