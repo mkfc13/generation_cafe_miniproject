@@ -1,5 +1,5 @@
 Latte
-Cuppaccino
+Cappuccino
 Mocha
 Coca Cola
 sprite
