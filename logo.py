@@ -62,6 +62,23 @@ def print_courier_menu_message():
     print(courier_menu_message)
 
 
+def print_order_menu_logo():
+    order_menu_logo = ('''
+  _____           _                ______
+ / ___ \         | |              |  ___ \                   
+| |   | | ____ _ | | ____  ____   | | _ | | ____ ____  _   _ 
+| |   | |/ ___) || |/ _  )/ ___)  | || || |/ _  )  _ \| | | |
+| |___| | |  ( (_| ( (/ /| |      | || || ( (/ /| | | | |_| |
+ \_____/|_|   \____|\____)_|      |_||_||_|\____)_| |_|\____|
+    ''')
+    print(order_menu_logo + '\n')
+
+
+def print_order_menu_message():
+    order_menu_message = "0: to return to main menu. \n1: Print you current Orders Dictionary. \n2: enter a NEW order. \n3: update an existing order status. \n4: update and existing order. \n5: delete an order.\n"
+    print(order_menu_message)
+
+
 def print_exit_message():
     exit_message = (''' 
 ................................................................
