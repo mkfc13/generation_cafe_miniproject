@@ -20,6 +20,6 @@ while True:
         courier_menu()
     elif choice == '3':
         print_order_menu_logo()
-        courier_menu()
+        order_menu()
     else:
         print('Please choose only the following options:\n')

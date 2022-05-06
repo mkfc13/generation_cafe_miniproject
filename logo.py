@@ -24,7 +24,7 @@ def print_main_menu_logo():
 
 
 def print_main_menu_message():
-    main_menu = '\n 0: Save Changes and Exit the app. \n 1: Product Menu.\n 2: Courier Menu. \n'
+    main_menu = '\n 0: Save Changes and Exit the app. \n 1: Product Menu.\n 2: Courier Menu. \n 3: Order Menu. \n'
     print(main_menu + '\n')
 
 
