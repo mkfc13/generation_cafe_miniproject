@@ -43,6 +43,7 @@ def product_menu():
         elif num == '2':
             new_product = input('please type in your new product: \n')
             product_list.append(new_product)
+            write_to_product_list()
             print('................................................................\n')
 
         elif num == '3':
@@ -54,6 +55,7 @@ def product_menu():
             print(
                 f"***{product_list[choice]} has been updated with {replace}.***\n")
             product_list[choice] = replace
+            write_to_product_list()
             print('................................................................\n')
 
         elif num == '4':
@@ -62,6 +64,7 @@ def product_menu():
             item = user_input(product_list)
             print(f"***{product_list[item]} has been deleted.***\n")
             del product_list[item]
+            write_to_product_list()
             print('................................................................\n')
 
         else:

@@ -2,6 +2,9 @@ from product import *
 from courier import *
 from order import *
 
+# refactoring these code into OOP
+# possible addition combine menu in one menu()
+
 print_cafe_logo()
 print_main_menu_logo()
 while True:

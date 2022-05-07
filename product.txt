@@ -2,9 +2,9 @@ Latte
 Cappuccino
 Mocha
 Coca Cola
-sprite
+Sprite
 7up
-pepsi
+Pepsi
 Fanta
 Espresso
 Americano

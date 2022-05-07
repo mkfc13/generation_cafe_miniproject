@@ -44,6 +44,7 @@ def courier_menu():
         elif num == '2':
             new_courier = input('please type in your new courier name: \n')
             courier_list.append(new_courier)
+            write_to_courier_list()
             print(
                 '................................................................\n')
 
@@ -57,6 +58,7 @@ def courier_menu():
             print(
                 f"***{courier_list[choice]} has been updated with {replace}.***\n")
             courier_list[choice] = replace
+            write_to_courier_list()
             print(
                 '................................................................\n')
 
@@ -67,6 +69,7 @@ def courier_menu():
             item = user_input(courier_list)
             print(f"***{courier_list[item]} has been deleted.***\n")
             del courier_list[item]
+            write_to_courier_list()
             print(
                 '................................................................\n')
 

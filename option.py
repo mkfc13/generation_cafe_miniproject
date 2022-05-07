@@ -11,5 +11,4 @@ def user_input(new_list):
             break
         except Exception as e:
             print("Please choose a valid option")
-            print(e)
     return num
