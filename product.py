@@ -25,6 +25,27 @@ def enum_product_list():
         print(f"{index}. {product}")
 
 
+def add_new_product_list():
+    new_product = input('please type in your new product: \n')
+    product_list.append(new_product)
+
+
+def update_product_list():
+    print('Choose the corresponding index number for the product you want to update: \n')
+    choice = user_input(product_list)
+    replace = input("What do you want to replace the product with: \n")
+    print(
+        f"***{product_list[choice]} has been updated with {replace}.***\n")
+    product_list[choice] = replace
+
+
+def delete_product_list():
+    print("Enter the corresponding index number to delete the product: \n")
+    item = user_input(product_list)
+    print(f"***{product_list[item]} has been deleted.***\n")
+    del product_list[item]
+
+
 def product_menu():
     while True:
         print_product_menu_message()
@@ -41,29 +62,19 @@ def product_menu():
             print('................................................................\n')
 
         elif num == '2':
-            new_product = input('please type in your new product: \n')
-            product_list.append(new_product)
+            add_new_product_list()
             write_to_product_list()
             print('................................................................\n')
 
         elif num == '3':
             enum_product_list()
-            print(
-                'Choose the corresponding index number for the product you want to update: \n')
-            choice = user_input(product_list)
-            replace = input("What do you want to replace the product with: \n")
-            print(
-                f"***{product_list[choice]} has been updated with {replace}.***\n")
-            product_list[choice] = replace
+            update_product_list()
             write_to_product_list()
             print('................................................................\n')
 
         elif num == '4':
-            print("Enter the corresponding index number to delete the product: \n")
             enum_product_list()
-            item = user_input(product_list)
-            print(f"***{product_list[item]} has been deleted.***\n")
-            del product_list[item]
+            delete_product_list()
             write_to_product_list()
             print('................................................................\n')
 

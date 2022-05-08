@@ -25,6 +25,27 @@ def enum_courier_list():
         print(f"{index}. {courier}")
 
 
+def add_new_courier_list():
+    new_courier = input('please type in your new courier name: \n')
+    courier_list.append(new_courier)
+
+
+def update_courier_list():
+    print('Choose the corresponding index number for the courier name you want to update: \n')
+    choice = user_input(courier_list)
+    replace = input("What do you want to replace the courier with: \n")
+    print(
+        f"***{courier_list[choice]} has been updated with {replace}.***\n")
+    courier_list[choice] = replace
+
+
+def delete_courier_list():
+    print("Enter the corresponding index number to delete the courier name: \n")
+    item = user_input(courier_list)
+    print(f"***{courier_list[item]} has been deleted.***\n")
+    del courier_list[item]
+
+
 def courier_menu():
     while True:
         print_courier_menu_message()
@@ -42,33 +63,20 @@ def courier_menu():
                 '................................................................\n')
 
         elif num == '2':
-            new_courier = input('please type in your new courier name: \n')
-            courier_list.append(new_courier)
+            add_new_courier_list()
             write_to_courier_list()
             print(
                 '................................................................\n')
 
         elif num == '3':
             enum_courier_list()
-            print(
-                "Choose the corresponding index number for the courier name you want to update: \n")
-            choice = user_input(courier_list)
-            replace = input(
-                "What do you want to replace the courier name with: \n")
-            print(
-                f"***{courier_list[choice]} has been updated with {replace}.***\n")
-            courier_list[choice] = replace
+            update_courier_list()
             write_to_courier_list()
             print(
                 '................................................................\n')
 
         elif num == '4':
-            print(
-                "Enter the corresponding index number to delete the courier name: \n")
-            enum_courier_list()
-            item = user_input(courier_list)
-            print(f"***{courier_list[item]} has been deleted.***\n")
-            del courier_list[item]
+            delete_courier_list()
             write_to_courier_list()
             print(
                 '................................................................\n')

@@ -75,7 +75,7 @@ def print_order_menu_logo():
 
 
 def print_order_menu_message():
-    order_menu_message = "0: to return to main menu. \n1: Print you current Orders Dictionary. \n2: enter a NEW order. \n3: update an existing order status. \n4: update and existing order. \n5: delete an order.\n"
+    order_menu_message = "0: to return to main menu. \n1: Print you current Orders Dictionary. \n2: enter a NEW order. \n3: update an existing order's status. \n4: update an existing order. \n5: delete an order.\n"
     print(order_menu_message)
 
 
