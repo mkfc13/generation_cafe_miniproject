@@ -1,44 +1,23 @@
 [
     {
-        "courier":"Apple",
-        "customer_address":"Unit 2, 12 Main Street, LONDON, WH1 2ER",
         "customer_name":"John",
-        "customer_phone":"0789887334",
-        "status":"Preparing"
-    },
-    {
-        "courier":"Barry",
-        "customer_address":"Earth",
-        "customer_name":"Marshall",
-        "customer_phone":"new",
-        "status":"Still Preparing"
-    },
-    {
-        "courier":"Chris",
         "customer_address":"Unit 2, 12 Main Street, LONDON, WH1 2ER",
-        "customer_name":"Billy",
-        "customer_phone":"Billy phone",
+        "customer_phone":"0789887334",
+        "courier":"Apple",
+        "status":"Forever Preparing"
+    },
+    {
+        "customer_name":"Marshall",
+        "customer_address":"Earth",
+        "customer_phone":"new",
+        "courier":"Barry",
         "status":"Preparing"
     },
     {
-        "courier":"Dave",
-        "customer_address":"London",
-        "customer_name":"Wayne",
-        "customer_phone":"07871234567",
-        "status":"Preparing"
-    },
-    {
+        "customer_name":"Jesus",
+        "customer_address":"Heaven",
+        "customer_phone":"101",
         "courier":"Elliot",
-        "customer_address":"New Address",
-        "customer_name":"New Name",
-        "customer_phone":"New Phone",
-        "status":"Ready Soon"
-    },
-    {
-        "courier":"Freddie",
-        "customer_address":"41242",
-        "customer_name":"123123",
-        "customer_phone":"14124",
         "status":"Preparing"
     }
 ]

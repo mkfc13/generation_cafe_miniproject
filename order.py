@@ -3,6 +3,8 @@ from courier import *
 from option import *
 import json
 import io
+import yaml
+
 
 with open('order.json') as order_file:
     order_list = json.load(order_file)
@@ -12,17 +14,14 @@ order_list = order_list
 
 def save_order():
     with io.open('order.json', 'w', encoding='utf-8') as outfile:
-        save_data = json.dumps(order_list, indent=4, sort_keys=True,
+        save_data = json.dumps(order_list, indent=4, sort_keys=False,
                                separators=(",", ":"), ensure_ascii=False)
         outfile.write(save_data)
 
 
 def enum_order_list():
-    data = order_list
-    for x in data:
-        orders = f'Customer Name: {x["customer_name"]}\nCustomer Address: {x["customer_address"]}\nCustomer Phone Number:{x["customer_phone"]}\nAssigned Courier: {x[str("courier")]}\nCurrent Status: {x["status"]}\n'
     for index, orders in enumerate(order_list):
-        print(f"{index}. {orders}")
+        print(f"{index}. {yaml.dump(order_list[index], sort_keys=False)}")
 
 
 def order_menu():
