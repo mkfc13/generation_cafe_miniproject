@@ -4,7 +4,8 @@ from option import *
 import json
 import io
 import yaml
-
+status_list = ['Preparing', 'Ready, Awaiting Pickup',
+               'Out for Delivery', 'Delivered']
 
 with open('order.json') as order_file:
     order_list = json.load(order_file)
@@ -24,6 +25,17 @@ def enum_order_list():
         print(f"{index}. {yaml.dump(order_list[index], sort_keys=False)}")
 
 
+def enum_order_status():
+    for index, orders in enumerate(order_list):
+        print(
+            f"Order No {index}.     Current Status: {yaml.dump(order_list[index]['status'], sort_keys=False)}")
+
+
+def enum_status_list():
+    for index, status in enumerate(status_list):
+        print(f"{index}. {status}")
+
+
 def new_order():
     customer_name = input("Please input the new customer's name.\n")
     customer_address = input("Please input the new customer's address.\n")
@@ -40,7 +52,7 @@ def new_order():
     print("***New Order been added to the Order List.***\n")
 
 
-def update_order_status():
+def update_order_status_with_user_input():
     print(
         '\nChoose the corresponding index number for the order status you want to update:')
     choice = user_input(order_list)
@@ -53,6 +65,24 @@ def update_order_status():
         f"\n***Status: {chose_status} has been updated to {replace}.***\n")
     order_dict.pop('status')
     new_status = {"status": replace}
+    order_dict.update(new_status)
+    order_list[choice] = order_dict
+
+
+def update_order_status():
+    print(
+        '\nChoose the corresponding index number for the order status you want to update:')
+    choice = user_input(order_list)
+    enum_order_status()
+    print('Available Status')
+    enum_status_list()
+    print('\nChoose the corresponding index number for the status you want to update to the order.')
+    replace = user_input(status_list)
+    order_dict = dict(order_list[choice])
+    print(
+        f"\n***Order no. {choice} has been updated to {status_list[replace]}.***\n")
+    order_dict.pop('status')
+    new_status = {"status": status_list[replace]}
     order_dict.update(new_status)
     order_list[choice] = order_dict
 
@@ -104,15 +134,20 @@ def update_order():
     else:
         print("Invalid option, therefore no update to Assigned Courier.\n")
         new_order_dict['courier'] = order_dict.get('courier')
+    print('Available Status')
+    enum_status_list()
     new_status = input(
-        "Please input the new order status or Enter to skip.\n")
-    if new_status == '':
+        "Please input the corresponding index number for a new order status or Enter to skip.\n")
+    if 0 <= int(new_status) < len(status_list):
+        print(
+            f"***{order_dict.get('status')} has been updated to {status_list[int(new_status)]}.***\n")
+        new_order_dict['status'] = status_list[int(new_status)]
+    elif new_status == '':
         print("No update to Order's Status.\n")
         new_order_dict['status'] = order_dict.get('status')
     else:
-        print(
-            f"***{order_dict.get('status')} has been updated to {new_status}.***\n")
-        new_order_dict['status'] = new_status
+        print("Invalid option, therefore no update to Order's Status.\n")
+        new_order_dict['status'] = order_dict.get('status')
     order_list[choice] = new_order_dict
     print('Order has been updated to:')
     print(new_order_dict)
