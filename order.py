@@ -122,23 +122,19 @@ def update_order():
         new_order_dict['customer_phone'] = new_customer_phone
     print('Courier List')
     enum_courier_list()
-    courier_no = input(
-        "Please input the new number of the assigned courier or Enter to skip.\n")
-    courier_no_int = int(courier_no)
+    print("Please input the new number of the assigned courier or Enter to skip.\n")
+    courier_no = user_input(courier_list)
     if courier_no == "":
         print("No update to Assigned Courier.\n")
         new_order_dict['courier'] = order_dict.get('courier')
-    elif 0 <= courier_no_int < len(courier_list):
+    elif 0 <= courier_no < len(courier_list):
         print(
-            f"***{order_dict.get('courier')} has been updated to {courier_list[courier_no_int]}.***\n")
-        new_order_dict['courier'] = courier_list[courier_no_int]
-    else:
-        print("Invalid option, therefore no update to Assigned Courier.\n")
-        new_order_dict['courier'] = order_dict.get('courier')
+            f"***{order_dict.get('courier')} has been updated to {courier_list[courier_no]}.***\n")
+        new_order_dict['courier'] = courier_list[courier_no]
     print('Available Status')
     enum_status_list()
-    new_status = input(
-        "Please input the corresponding index number for a new order status or Enter to skip.\n")
+    print("Please input the corresponding index number for a new order status or Enter to skip.\n")
+    new_status = user_input(status_list)
     if new_status == '':
         print("No update to Order's Status.\n")
         new_order_dict['status'] = order_dict.get('status')
@@ -146,9 +142,6 @@ def update_order():
         print(
             f"***{order_dict.get('status')} has been updated to {status_list[int(new_status)]}.***\n")
         new_order_dict['status'] = status_list[int(new_status)]
-    else:
-        print("Invalid option, therefore no update to Order's Status.\n")
-        new_order_dict['status'] = order_dict.get('status')
     order_list[choice] = new_order_dict
     print('Order has been updated to:')
     print(new_order_dict)
