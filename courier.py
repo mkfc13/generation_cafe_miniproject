@@ -76,6 +76,7 @@ def courier_menu():
                 '................................................................\n')
 
         elif num == '4':
+            enum_courier_list()
             delete_courier_list()
             write_to_courier_list()
             print(

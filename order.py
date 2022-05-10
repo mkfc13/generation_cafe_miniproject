@@ -3,7 +3,6 @@ from courier import *
 from option import *
 import json
 import io
-import yaml
 status_list = ['Preparing', 'Ready, Awaiting Pickup',
                'Out for Delivery', 'Delivered']
 
@@ -21,14 +20,17 @@ def save_order():
 
 
 def enum_order_list():
-    for index, orders in enumerate(order_list):
-        print(f"{index}. {yaml.dump(order_list[index], sort_keys=False)}")
+    for index, order in enumerate(order_list):
+        print(f"Order No. {index}")
+        for key, value in order.items():
+            print(f"{key}: {value}")
+        print("")
 
 
 def enum_order_status():
     for index, orders in enumerate(order_list):
         print(
-            f"Order No {index}.     Current Status: {yaml.dump(order_list[index]['status'], sort_keys=False)}")
+            f"Order No {index}. Current Status: {order_list[index]['status']}")
 
 
 def enum_status_list():
@@ -48,7 +50,6 @@ def new_order():
     orders = {"customer_name": customer_name, "customer_address": customer_address,
               "customer_phone": customer_phone, "courier": courier_list[courier_no], "status": status}
     order_list.append(orders)
-    print(yaml.dump(order_list[len(order_list) - 1], sort_keys=False))
     print("***New Order been added to the Order List.***\n")
 
 
@@ -123,14 +124,14 @@ def update_order():
     enum_courier_list()
     courier_no = input(
         "Please input the new number of the assigned courier or Enter to skip.\n")
-    new_courier = courier_list[int(courier_no)]
-    if 0 <= int(courier_no) < len(courier_list):
-        print(
-            f"***{order_dict.get('courier')} has been updated to {new_courier}.***\n")
-        new_order_dict['courier'] = new_courier
-    elif new_courier == "":
+    courier_no_int = int(courier_no)
+    if courier_no == "":
         print("No update to Assigned Courier.\n")
         new_order_dict['courier'] = order_dict.get('courier')
+    elif 0 <= courier_no_int < len(courier_list):
+        print(
+            f"***{order_dict.get('courier')} has been updated to {courier_list[courier_no_int]}.***\n")
+        new_order_dict['courier'] = courier_list[courier_no_int]
     else:
         print("Invalid option, therefore no update to Assigned Courier.\n")
         new_order_dict['courier'] = order_dict.get('courier')

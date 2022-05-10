@@ -1,23 +1,23 @@
 [
     {
-        "customer_name": "John",
-        "customer_address": "Unit 2, 12 Main Street, LONDON, WH1 2ER",
-        "customer_phone": "0789887334",
-        "courier": "Apple",
-        "status": "Preparing"
+        "customer_name":"John",
+        "customer_address":"Unit 2, 12 Main Street, LONDON, WH1 2ER",
+        "customer_phone":"0789887334",
+        "courier":"Apple",
+        "status":"Preparing"
     },
     {
-        "customer_name": "Marshall",
-        "customer_address": "Earth",
-        "customer_phone": "new",
-        "courier": "Barry",
-        "status": "Preparing"
+        "customer_name":"Marshall",
+        "customer_address":"Earth",
+        "customer_phone":"new",
+        "courier":"Barry",
+        "status":"Preparing"
     },
     {
-        "customer_name": "Jesus",
-        "customer_address": "Heaven",
-        "customer_phone": "999",
-        "courier": "Chris",
-        "status": "Out for Delivery"
+        "customer_name":"Jesus",
+        "customer_address":"Heaven",
+        "customer_phone":"999",
+        "courier":"Chris",
+        "status":"Ready, Awaiting Pickup"
     }
 ]
