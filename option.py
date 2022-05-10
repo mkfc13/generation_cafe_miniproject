@@ -1,3 +1,6 @@
+from pytest import skip
+
+
 def enumerate_new_list(new_list):
     for index, value in enumerate(new_list):
         print(f"{index}. {value}")
@@ -14,6 +17,9 @@ def user_input(new_list):
                 raise ValueError
             break
         except Exception as e:
-            print("Please choose a valid option")
-            print(enumerate_new_list(new_list))
+            if num == "":
+                break
+            else:
+                print("Please choose a valid option")
+                print(enumerate_new_list(new_list))
     return num
