@@ -12,7 +12,6 @@ def user_input(new_list):
                 num = num
             else:
                 raise ValueError
-
             break
         except Exception as e:
             print("Please choose a valid option")

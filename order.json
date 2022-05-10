@@ -19,5 +19,19 @@
         "customer_phone":"999",
         "courier":"Chris",
         "status":"Ready, Awaiting Pickup"
+    },
+    {
+        "customer_name":"Google",
+        "customer_address":"World",
+        "customer_phone":"1-800-CALL_NOW",
+        "courier":"Elliot",
+        "status":"Preparing"
+    },
+    {
+        "customer_name":"5",
+        "customer_address":"here",
+        "customer_phone":"6531",
+        "courier":"Elliot",
+        "status":"Out for Delivery"
     }
 ]

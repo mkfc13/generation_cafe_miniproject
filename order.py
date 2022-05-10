@@ -139,13 +139,13 @@ def update_order():
     enum_status_list()
     new_status = input(
         "Please input the corresponding index number for a new order status or Enter to skip.\n")
-    if 0 <= int(new_status) < len(status_list):
+    if new_status == '':
+        print("No update to Order's Status.\n")
+        new_order_dict['status'] = order_dict.get('status')
+    elif 0 <= int(new_status) < len(status_list):
         print(
             f"***{order_dict.get('status')} has been updated to {status_list[int(new_status)]}.***\n")
         new_order_dict['status'] = status_list[int(new_status)]
-    elif new_status == '':
-        print("No update to Order's Status.\n")
-        new_order_dict['status'] = order_dict.get('status')
     else:
         print("Invalid option, therefore no update to Order's Status.\n")
         new_order_dict['status'] = order_dict.get('status')
