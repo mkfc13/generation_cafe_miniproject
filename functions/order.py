@@ -1,36 +1,41 @@
-from logo import *
-from courier import *
-from option import *
-import json
-import io
+from functions.logo import *
+from functions.courier import *
+from functions.product import *
+from functions.option import *
+import csv
+import pandas as pd
+
 status_list = ['Preparing', 'Ready, Awaiting Pickup',
                'Out for Delivery', 'Delivered']
 
-with open('order.json') as order_file:
-    order_list = json.load(order_file)
 
-order_list = order_list
+def open_order_file():
+    order_list = []
+    with open('data\order.csv', 'r') as infile:
+        csv_file = csv.DictReader(infile)
+        for row in csv_file:
+            order_list.append(row)
+        return order_list
+
+
+order_list = open_order_file()
 
 
 def save_order():
-    with io.open('order.json', 'w', encoding='utf-8') as outfile:
-        save_data = json.dumps(order_list, indent=4, sort_keys=False,
-                               separators=(",", ":"), ensure_ascii=False)
-        outfile.write(save_data)
+    with open('data\order.csv', 'w', newline='') as outfile:
+        fieldnames = ['customer_name', 'customer_address',
+                      'customer_phone', 'courier', 'status', 'items']
+        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for dict in order_list:
+            writer.writerow(dict)
 
 
 def enum_order_list():
     for index, order in enumerate(order_list):
-        print(f"Order No. {index}")
-        for key, value in order.items():
-            print(f"{key}: {value}")
-        print("")
-
-
-def enum_order_status():
-    for index, orders in enumerate(order_list):
-        print(
-            f"Order No {index}. Current Status: {order_list[index]['status']}")
+        f"{index}. {order}"
+    df = pd.read_csv('data\order.csv', dtype={'Phone': 'str'})
+    print(df)
 
 
 def enum_status_list():
@@ -45,39 +50,24 @@ def new_order():
     enum_courier_list()
     print(
         f"Please input the relevant courier number to assigned the courier for {customer_name}.\n")
-    courier_no = user_input(courier_list)
+    only_courier_list = pd_courier_list()
+    courier_no = user_input(only_courier_list)
     status = "Preparing"
+    item_list = purchase_product()
     orders = {"customer_name": customer_name, "customer_address": customer_address,
-              "customer_phone": customer_phone, "courier": courier_list[courier_no], "status": status}
+              "customer_phone": customer_phone, "courier": only_courier_list[courier_no], "status": status, "items": item_list}
     order_list.append(orders)
     print("***New Order been added to the Order List.***\n")
 
 
-def update_order_status_with_user_input():
-    print(
-        '\nChoose the corresponding index number for the order status you want to update:')
-    choice = user_input(order_list)
-    order_dict = dict(order_list[choice])
-    print(f"Current Order Status: {order_dict['status']}\n")
-    replace = input(
-        "Please input the new status.\n")
-    chose_status = order_dict.get('status', [])
-    print(
-        f"\n***Status: {chose_status} has been updated to {replace}.***\n")
-    order_dict.pop('status')
-    new_status = {"status": replace}
-    order_dict.update(new_status)
-    order_list[choice] = order_dict
-
-
 def update_order_status():
     print(
-        '\nChoose the corresponding index number for the order status you want to update:')
-    choice = user_input(order_list)
-    enum_order_status()
+        '\nChoose the Order No. for the order status you want to update:')
+    choice = menu_input(order_list)
     print('Available Status')
     enum_status_list()
-    print('\nChoose the corresponding index number for the status you want to update to the order.')
+    print('\nChoose the corresponding index number for the status you want to update to the order with.')
+    # In the future I can add an additional input for custom status, letting user put input their own status.
     replace = user_input(status_list)
     order_dict = dict(order_list[choice])
     print(
@@ -90,7 +80,7 @@ def update_order_status():
 
 def update_order():
     print('\nChoose the corresponding index number for the order you want to update:')
-    choice = user_input(order_list)
+    choice = menu_input(order_list)
     order_dict = dict(order_list[choice])
     new_order_dict = {}
     new_customer_name = input(
@@ -122,15 +112,16 @@ def update_order():
         new_order_dict['customer_phone'] = new_customer_phone
     print('Courier List')
     enum_courier_list()
+    only_courier_list = pd_courier_list()
     print("Please input the new number of the assigned courier or Enter to skip.\n")
-    courier_no = user_input(courier_list)
+    courier_no = user_input(only_courier_list)
     if courier_no == "":
         print("No update to Assigned Courier.\n")
         new_order_dict['courier'] = order_dict.get('courier')
-    elif 0 <= courier_no < len(courier_list):
+    elif 0 <= courier_no < len(only_courier_list):
         print(
-            f"***{order_dict.get('courier')} has been updated to {courier_list[courier_no]}.***\n")
-        new_order_dict['courier'] = courier_list[courier_no]
+            f"***{order_dict.get('courier')} has been updated to {only_courier_list[courier_no]}.***\n")
+        new_order_dict['courier'] = only_courier_list[courier_no]
     print('Available Status')
     enum_status_list()
     print("Please input the corresponding index number for a new order status or Enter to skip.\n")
@@ -142,16 +133,52 @@ def update_order():
         print(
             f"***{order_dict.get('status')} has been updated to {status_list[int(new_status)]}.***\n")
         new_order_dict['status'] = status_list[int(new_status)]
+    new_purchased_list = []
+    while True:
+        enum_product_list()
+        print("Please input the new product to be updated or Enter to skip.\n")
+        new_purchased_item = user_input(product_list)
+        if new_purchased_item == '':
+            print("No update to Customer's Purchased Items.\n")
+            new_order_dict['items'] = order_dict.get('items')
+            break
+        elif 0 <= int(new_purchased_item) < len(product_list):
+            only_product_list = pd_product_list()
+            new_purchased_list.append(only_product_list[new_purchased_item])
+            print(f"purchases so far: {new_purchased_list}")
+            more_purchase = input(
+                "Do you want to purchase more item? Enter 'Y'es to continue, or just press Enter or 'N'o to stop.\n").lower()
+            if more_purchase == '' or more_purchase == 'n' or more_purchase == 'no':
+                new_order_dict['items'] = new_purchased_list
+                break
+            elif more_purchase == 'y' or more_purchase == 'yes':
+                continue
+            else:
+                print("Invalid option, assuming you don't want to add more purchase")
+                new_order_dict['items'] = new_purchased_list
+                break
+        else:
+            print("Invalid option, assuming you don't want to add more purchase")
+            new_order_dict['items'] = new_purchased_list
+            break
     order_list[choice] = new_order_dict
     print('Order has been updated to:')
     print(new_order_dict)
 
 
-def delete_order():
-    print("Enter the corresponding index number to delete the order: \n")
-    item = user_input(order_list)
-    print(f"***{order_list[item]} has been deleted.***\n")
-    del order_list[item]
+# def delete_order():
+#     print("Enter the corresponding index number to delete the order: \n")
+#     item = user_input(order_list)
+#     print(f"***{order_list[item]} has been deleted.***\n")
+#     del order_list[item]
+
+def delete_courier():
+    print("Enter the corresponding index number to delete courier from the fulfilled order: \n")
+    item = menu_input(order_list)
+    del_courier = order_list[item]
+    print(f"***{del_courier['courier']} has been deleted.***\n")
+    del_courier["courier"] = "Deleted"
+    del_courier["status"] = "Completed"
 
 
 def order_menu():
@@ -188,7 +215,7 @@ def order_menu():
 
         elif num == '5':
             enum_order_list()
-            delete_order()
+            delete_courier()
             save_order()
             print('................................................................\n')
         else:

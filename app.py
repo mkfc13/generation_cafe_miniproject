@@ -1,6 +1,6 @@
-from product import *
-from courier import *
-from order import *
+from functions.product import *
+from functions.courier import *
+from functions.order import *
 
 # refactoring these code into OOP
 
@@ -13,6 +13,7 @@ while True:
         print_exit_message()
         write_to_product_list()
         write_to_courier_list()
+        save_order()
         break
     elif choice == '1':
         print_product_menu_logo()
