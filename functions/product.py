@@ -1,19 +1,12 @@
+from functions.function import *
 from functions.logo import *
 from functions.option import *
 import csv
 import pandas as pd
+header = ['Product', 'Price']
 
 
-def open_product_file():
-    product_list = []
-    with open('data\product.csv', 'r') as infile:
-        csv_reader = csv.DictReader(infile)
-        for row in csv_reader:
-            product_list.append(row)
-        return product_list
-
-
-product_list = open_product_file()
+product_list = open_file('data\product.csv')
 
 
 def enum_product_list():
@@ -31,15 +24,6 @@ def pd_price_list():
     df = pd.read_csv('data\product.csv')
     only_product_price = df['Price'].tolist()
     return only_product_price
-
-
-def write_to_product_list():
-    with open('data\product.csv', 'w', newline='') as outfile:
-        fieldnames = ['Product', 'Price']
-        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in product_list:
-            writer.writerow(row)
 
 
 def purchase_product():
@@ -121,20 +105,20 @@ def product_menu():
             print('................................................................\n')
 
         elif num == '2':
-            add_new_product_list()
-            write_to_product_list()
+            create_new_product('new_product_name','new_product_price')
+            save_file('data\product.csv', header, product_list)
             print('................................................................\n')
 
         elif num == '3':
             enum_product_list()
             update_product_list()
-            write_to_product_list()
+            save_file('data\product.csv', header, product_list)
             print('................................................................\n')
 
         elif num == '4':
             enum_product_list()
             delete_product_list()
-            write_to_product_list()
+            save_file('data\product.csv', header, product_list)
             print('................................................................\n')
 
         else:
