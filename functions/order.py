@@ -1,39 +1,21 @@
+from functions.function import *
 from functions.logo import *
 from functions.courier import *
 from functions.product import *
 from functions.option import *
 import csv
 import pandas as pd
+header = ['customer_name', 'customer_address',
+          'customer_phone', 'courier', 'status', 'items']
 
 status_list = ['Preparing', 'Ready, Awaiting Pickup',
                'Out for Delivery', 'Delivered']
 
 
-def open_order_file():
-    order_list = []
-    with open('data\order.csv', 'r') as infile:
-        csv_file = csv.DictReader(infile)
-        for row in csv_file:
-            order_list.append(row)
-        return order_list
-
-
-order_list = open_order_file()
-
-
-def save_order():
-    with open('data\order.csv', 'w', newline='') as outfile:
-        fieldnames = ['customer_name', 'customer_address',
-                      'customer_phone', 'courier', 'status', 'items']
-        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for dict in order_list:
-            writer.writerow(dict)
+order_list = open_file('data\order.csv')
 
 
 def enum_order_list():
-    for index, order in enumerate(order_list):
-        f"{index}. {order}"
     df = pd.read_csv('data\order.csv', dtype={'Phone': 'str'})
     print(df)
 
@@ -76,6 +58,18 @@ def update_order_status():
     new_status = {"status": status_list[replace]}
     order_dict.update(new_status)
     order_list[choice] = order_dict
+
+
+def short_update_order():
+    choice = menu_input(order_list)
+    for key, value in dict(order_list)[choice].items():
+        print("Do you want to change the value\n")
+        print(f"{key}: {value}")
+        replace = input('')
+        if len(replace) == 0:
+            print("No update has been done.")
+        else:
+            dict(order_list)[choice][key] = replace
 
 
 def update_order():
@@ -198,25 +192,25 @@ def order_menu():
 
         elif num == '2':
             new_order()
-            save_order()
+            save_file('data\order.csv', header, order_list)
             print('................................................................\n')
 
         elif num == '3':
             enum_order_list()
             update_order_status()
-            save_order()
+            save_file('data\order.csv', header, order_list)
             print('................................................................\n')
 
         elif num == '4':
             enum_order_list()
-            update_order()
-            save_order()
+            short_update_order()
+            save_file('data\order.csv', header, order_list)
             print('................................................................\n')
 
         elif num == '5':
             enum_order_list()
             delete_courier()
-            save_order()
+            save_file('data\order.csv', header, order_list)
             print('................................................................\n')
         else:
             print('Please choose only the following options:\n')

@@ -1,12 +1,10 @@
-# Mini Project Week 4
+# Mini Project Week 5
 
-Now that we've learned how to work with two-dimensional data, let's refactor our app to use dictionaries for both product and courier.
+CSV is great, but there is a better option. Let's store our couriers, and products in a database, we'll leave orders as they are for now.
 
-Building upon our use of a courier index within our order, let's create a list of product indexes now for order items.
+An order's courier, and items properties currently use indexes to reference these entities, we're going to change this to use ids instead.
 
-We'll also need to refactor our storage layer to use `.csv` files rather than `.txt` to bring back our persistence functionality.
-
-Unit-tests from previous weeks will need to be updated.
+Remember to update unit-tests.
 
 ## Goals
 
@@ -18,6 +16,8 @@ As a user I want to:
 - persist my data
 - _STRETCH_ update or delete a product, order, or courier
 - _BONUS_ list orders by status or courier
+- _BONUS_ track my product inventory
+- _BONUS_ import/export my entities in CSV format
 
 ## Spec
 
@@ -25,8 +25,9 @@ As a user I want to:
 
 ```json
 {
+  "id": 4,
   "name": "Coke Zero",
-  "price": 0.8 // Float
+  "price": 0.8
 }
 ```
 
@@ -34,6 +35,7 @@ As a user I want to:
 
 ```json
 {
+  "id": 2,
   "name": "Bob",
   "phone": "0789887889"
 }
@@ -46,13 +48,13 @@ As a user I want to:
   "customer_name": "John",
   "customer_address": "Unit 2, 12 Main Street, LONDON, WH1 2ER",
   "customer_phone": "0789887334",
-  "courier": 2, // Courier IDX
+  "courier": 2, // Courier ID
   "status": "preparing",
   "items": [1, 3, 4] // Product IDs
 }
 ```
 
-- Data should be persisted to a `.csv` file on a new line for each `courier`, `order`, or `product`, ie:
+- Data should be persisted to a `.csv` file on a new line for each `order`, ie:
 
 ```csv
 # ORDER
@@ -62,9 +64,10 @@ John,"Unit 2, 12 Main Street, LONDON, WH1 2ER",2,preparing,"1,3,4"
 ## Pseudo Code
 
 ```txt
-LOAD products list from products.csv    # WEEK 4 UPDATE
-LOAD couriers list from couriers.csv    # WEEK 4 UPDATE
-LOAD orders list from orders.csv        # WEEK 4 UPDATE
+# we are no longer reading products and couriers from files
+# we are now reading data from database tables
+
+LOAD orders list from orders.csv
 CREATE order status list
 
 PRINT main menu options
@@ -84,38 +87,41 @@ ELSE IF user input is 1:
     IF user inputs 0:
         RETURN to main menu
 
+    # WEEK 5 UPDATE
     ELSE IF user input is 1:
-        PRINT products list
+        GET all products from products table
+        PRINT products
 
-    # WEEK 4 UPDATE
+    # WEEK 5 UPDATE
     ELSE IF user input is 2:
         # CREATE new product
 
         GET user input for product name
         GET user input for product price
-        CREATE new product dictionary with above properties
-        APPEND product dictionary to products list
+        INSERT product into products table
 
-    # WEEK 4 UPDATE
+    # WEEK 5 UPDATE
     ELSE IF user input is 3: 
         # STRETCH GOAL - UPDATE existing product
 
-        PRINT products with their index values
-        GET user input for product index value
+        GET all products from products table
+        PRINT products with their IDs
+        GET user input for product ID
 
-        FOR EACH key-value pair in selected product:
-            GET user input for updated property
-            IF user input is blank:
-                do not update this property and skip
-            ELSE:
-                update the property value with user input
+        GET user input for product name
+        GET user input for product price
+
+        IF any inputs are empty, do not update them
+        UPDATE properties for product in product table
 
     ELSE IF user input is 4:
         # STRETCH GOAL - DELETE product
         
-        PRINT products list
-        GET user input for product index value
-        DELETE product at index in products list
+        GET all products from products table
+        PRINT products with their IDs
+
+        GET user input for product ID
+        DELETE product in products table
 
 # couriers menu
 ELSE IF user input is 2:
@@ -128,35 +134,36 @@ ELSE IF user input is 2:
     ELIF user inputs 1:
         PRINT couriers list
 
-    # WEEK 4 UPDATE
+    # WEEK 5 UPDATE
     ELSE IF user input is 2:
         # CREATE new courier
 
         GET user input for courier name
         GET user input for courier phone number
-        CREATE new courier dictionary with above properties
-        APPEND courier dictionary to courier list
+        INSERT courier into couriers table
 
-    # WEEK 4 UPDATE
+    # WEEK 5 UPDATE
     ELSE IF user input is 3: 
         # STRETCH GOAL - UPDATE existing courier
 
-        PRINT courier with their index values
-        GET user input for courier index value
+        GET all couriers from couriers table
+        PRINT couriers with their IDs
+        GET user input for courier ID
 
-        FOR EACH key-value pair in selected courier:
-            GET user input for updated property
-            IF user input is blank:
-                do not update this property and skip
-            ELSE:
-                update the property value with user input
+        GET user input for courier name
+        GET user input for courier phone number
 
-    ELSE IF user input is 4:
-        # STRETCH GOAL - DELETE courier
-            
-        PRINT courier list
-        GET user input for courier index value
-        DELETE courier at index in courier list
+        IF an input is empty, do not update its respective table property
+        UPDATE properties for courier in courier table
+
+        ELSE IF user input is 4:
+            # STRETCH GOAL - DELETE courier
+                    
+            GET all couriers from couriers table
+            PRINT courier with their IDs
+
+            GET user input for courier ID
+            DELETE courier in couriers table
 
 # orders menu
 ELSE IF user input is 3:
@@ -166,7 +173,6 @@ ELSE IF user input is 3:
     ELSE IF user input is 1:
         PRINT orders dictionary
 
-    # WEEK 4 UPDATE
     ELSE IF user input is 2:
         GET user input for customer name
         GET user input for customer address

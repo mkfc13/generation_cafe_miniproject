@@ -1,28 +1,11 @@
+from functions.function import *
 from functions.logo import *
 from functions.option import *
 import csv
 import pandas as pd
+header = ['Courier', 'Phone']
 
-
-def open_courier_file():
-    courier_list = []
-    with open('data\courier.csv', 'r') as infile:
-        csv_file = csv.DictReader(infile)
-        for row in csv_file:
-            courier_list.append(row)
-        return courier_list
-
-
-courier_list = open_courier_file()
-
-
-def write_to_courier_list():
-    with open('data\courier.csv', 'w', newline='') as outfile:
-        fieldnames = ['Courier', 'Phone']
-        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for dict in courier_list:
-            writer.writerow(dict)
+courier_list = open_file('data\courier.csv')
 
 
 def enum_courier_list():
@@ -96,24 +79,24 @@ def courier_menu():
 
         elif num == '1':
             enum_courier_list()
-            write_to_courier_list()
+            save_file('data\courier.csv', header, courier_list)
             print('................................................................\n')
 
         elif num == '2':
             add_new_courier_list()
-            write_to_courier_list()
+            save_file('data\courier.csv', header, courier_list)
             print('................................................................\n')
 
         elif num == '3':
             enum_courier_list()
             update_courier_list()
-            write_to_courier_list()
+            save_file('data\courier.csv', header, courier_list)
             print('................................................................\n')
 
         elif num == '4':
             enum_courier_list()
             delete_courier_list()
-            write_to_courier_list()
+            save_file('data\courier.csv', header, courier_list)
             print('................................................................\n')
 
         else:

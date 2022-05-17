@@ -1,8 +1,11 @@
+from functions.function import *
 from functions.product import *
 from functions.courier import *
 from functions.order import *
+import pymysql
 
 # refactoring these code into OOP
+
 
 print_cafe_logo()
 print_main_menu_logo()
@@ -11,9 +14,11 @@ while True:
     choice = input()
     if choice == '0':
         print_exit_message()
-        write_to_product_list()
-        write_to_courier_list()
-        save_order()
+        save_file('data\product.csv', header, product_list)
+        save_file('data\courier.csv', header, courier_list)
+        save_file('data\order.csv', header, courier_list)
+        cursor.close()
+        connection.close()
         break
     elif choice == '1':
         print_product_menu_logo()

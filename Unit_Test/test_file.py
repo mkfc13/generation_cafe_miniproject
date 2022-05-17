@@ -58,6 +58,7 @@ def add_new_product_list():
     new_product_price = input('please type in your new product price: \n')
     new_product = {"Product": new_product_name, "Price": new_product_price}
     product_list.append(new_product)
+    print(new_product)
 
 
 @patch('builtins.input', side_effect=['7up', '1.00'])
@@ -67,3 +68,9 @@ def test_add_new_product_list(mock_print, mock_input):
     mock_print.assert_called_with("{'Product': 7up, 'Price': 1.00}")
     assert mock_input.call_count == 2
     assert mock_print.call_count == 1
+    print()
+
+# assert new product is added to product list
+
+
+test_add_new_product_list()
