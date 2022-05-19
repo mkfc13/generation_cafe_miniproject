@@ -4,12 +4,29 @@ import pymysql
 import os
 from dotenv import load_dotenv
 
-from functions.option import user_input
 table_name = ['Product', 'Courier', 'Orders']
 column_name = [['product_id', 'Name', 'Price'], ['courier_id', 'Name', 'Phone'], ['order_id', 'Customer_Name',
                                                                                   'Customer_Address', 'Customer_Phone', 'Courier', 'Status', 'Items']]
 status_list = ['Preparing', 'Ready, Awaiting Pickup',
                'Out for Delivery', 'Delivered']
+
+
+def user_input(new_list):
+    while True:
+        num = input()
+        try:
+            num = int(num)
+            if 0 <= num < len(new_list):
+                num = num
+            else:
+                raise ValueError
+            break
+        except Exception as e:
+            if num == "":
+                break
+            else:
+                print("Please choose a valid option")
+    return num
 
 
 def enum_status_list():
