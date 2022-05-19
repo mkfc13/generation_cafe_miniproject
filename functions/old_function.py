@@ -45,7 +45,17 @@ def select_table(choice):
         print(row)
 
 
-def create_new_row(choice):
+def old_select_table(choice):
+    selected_table = table_name[int(choice)-1]
+    selected_column = column_name[int(choice)-1]
+    cursor.execute(f"SELECT * FROM {selected_table}")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(
+            f"ID: {str(row[0])}, {selected_column[1]}: {row[1]}, {selected_column[2]}: {row[2]}")
+
+
+def create_new_row(choice, column_name):
     selected_column_name = table_name[int(choice)-1]
     selected_column = column_name[int(choice)-1]
     key = input(
@@ -58,22 +68,6 @@ def create_new_row(choice):
     connection.commit()
 
 
-def update_row(choice):
-    selected_table = table_name[int(choice)-1]
-    selected_column = column_name[int(choice)-1]
-    select_table(choice)
-    selected_table_id = input(
-        f"Choose the {selected_table} No. you want to update:\n")
-    selected_table_int = int(selected_table_id)
-    print(selected_column)
-    update_column = input("Type in what you want to update.\n")
-    new_update = input(
-        f"Type in the new detail you want to update {update_column} with:\n")
-    cursor.execute(
-        f"UPDATE {selected_table} SET {update_column}= '{new_update}' WHERE {selected_column[0]} = {selected_table_int}")
-    connection.commit()
-
-
 def delete_row(choice):
     selected_column_name = table_name[int(choice)-1]
     selected_row = column_name[int(choice)-1][0]
@@ -82,6 +76,15 @@ def delete_row(choice):
     sql = f"DELETE FROM {selected_column_name} WHERE {selected_row} = {delete_id}"
     cursor.execute(sql)
     connection.commit()
+
+
+def order_table():
+    order_list = []
+    cursor.execute("SELECT * FROM Orders")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(
+            f"Order No:{row[0]}\nCustomer Name: {row[1]}\nCustomer Address: {row[2]}\nCustomer Phone: {row[3]}\nCourier: {row[4]}\nStatus: {row[5]}\nItems: {row[6]}\n")
 
 
 def create_new_order():
@@ -99,7 +102,7 @@ def create_new_order():
 
 
 def update_order_status():
-    select_table(3)
+    order_table()
     selected_order_id = input(
         'Choose the Order No. for the order status you want to update:\n')
     selected_order = int(selected_order_id)

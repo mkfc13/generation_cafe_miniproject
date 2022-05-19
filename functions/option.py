@@ -16,7 +16,6 @@ def menu_input(new_list):
             break
         except Exception as e:
             print("Please choose a valid option")
-            print(enumerate_new_list(new_list))
     return num
 
 
