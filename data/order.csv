@@ -1,5 +1,5 @@
 customer_name,customer_address,customer_phone,courier,status,items
-John,"Unit 2, 12 Main Street, LONDON, WH1 2ER",0789887334,Adam,Preparing,['Espresso']
+John,"Unit 2, 12 Main Street, LONDON, WH1 2ER",0789887334,Adam,Out for Delivery,['Espresso']
 Marshall,London,07890123456,Bruce,Preparing,['Double Espresso']
 Steve,Steveland,0hsteve0h,Deleted,Completed,['7up']
 Last,Ditch,Effort,Chris,Preparing,"['Latte', '7up']"
