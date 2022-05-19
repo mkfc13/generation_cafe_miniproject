@@ -1,4 +1,4 @@
-WIP cafe app with the following functions.
+WIP Cafe app with the following functions.
 
 The app starts at the main menu, with the following options:
 0 to exit the app, 1 for product menu, 2 for courier menu and 3 for option menu.

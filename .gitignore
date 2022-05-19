@@ -1,7 +1,4 @@
-requirements.txt
 docker-compose.yml
-data
-functions\old_function.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
