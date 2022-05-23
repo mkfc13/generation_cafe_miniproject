@@ -41,7 +41,7 @@ def print_product_menu_logo():
 
 
 def print_product_menu_message():
-    product_menu_message = '0: to return to main menu. \n1: for your product list. \n2: create a new product. \n3: update an existing product. \n4: delete an existing product.\n'
+    product_menu_message = '0: to return to main menu. \n1: View your product list. \n2: create a new product. \n3: update an existing product details. \n4: delete an existing product.\n'
     print(product_menu_message)
 
 
@@ -58,7 +58,7 @@ def print_courier_menu_logo():
 
 
 def print_courier_menu_message():
-    courier_menu_message = '0: to return to main menu. \n1: Check you current Courier list. \n2: enter a NEW Courier name. \n3: update an existing Courier name. \n4: delete an existing Courier name.\n'
+    courier_menu_message = '0: to return to main menu. \n1: Check you current Courier list. \n2: enter a new Courier details. \n3: update an existing Courier details. \n4: delete an existing Courier.\n'
     print(courier_menu_message)
 
 
@@ -75,7 +75,7 @@ def print_order_menu_logo():
 
 
 def print_order_menu_message():
-    order_menu_message = "0: to return to main menu. \n1: Print you current Orders Dictionary. \n2: enter a NEW order. \n3: update an existing order's status. \n4: update an existing order. \n5: delete an order.\n"
+    order_menu_message = "0: to return to main menu. \n1: Print you current Orders. \n2: enter a new order details. \n3: update an existing order's status. \n4: update an existing order's details. \n5: delete an order.\n"
     print(order_menu_message)
 
 

@@ -52,7 +52,7 @@ def order_menu(choice):
             break
 
         elif num == '1':
-            select_table(choice)
+            join_table()
             print('................................................................\n')
 
         elif num == '2':

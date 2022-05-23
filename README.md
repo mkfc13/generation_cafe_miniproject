@@ -1,7 +1,10 @@
 WIP Cafe app with the following functions.
 
 The app starts at the main menu, with the following options:
-0 to exit the app, 1 for product menu, 2 for courier menu and 3 for option menu.
+0 to exit the app,
+1 for product menu,
+2 for courier menu,
+3 for option menu.
 
 Product Menu
 In the product menu, user may print the list of products with 1, 2 to create a new product. 3 to update existing product. 4 to delete existing products. Lastly user may press 0 to exit from the product menu back to the main menu.
