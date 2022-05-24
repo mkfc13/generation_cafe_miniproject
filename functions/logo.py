@@ -1,3 +1,5 @@
+
+
 def print_cafe_logo():
     cafe_logo = ("""
  _______                                               ______           ___        
@@ -7,6 +9,8 @@ def print_cafe_logo():
  _| |_   | \__. | | \__/ |         | \_/ |,| \__/ | \ `.___.'\// | |, | |  | \__., 
 |_____|   '.__.'  | ;.__/          '.__.'_/| ;.__/   `.____ .'\'-;__/[___]  '.__.' 
                  [__|                     [__|                                     
+                        
+                                                                by Marshall Hardik
                         """)
     print(cafe_logo + '\n')
 
@@ -75,7 +79,7 @@ def print_order_menu_logo():
 
 
 def print_order_menu_message():
-    order_menu_message = "0: to return to main menu. \n1: Print you current Orders. \n2: enter a new order details. \n3: update an existing order's status. \n4: update an existing order's details. \n5: delete an order.\n"
+    order_menu_message = "0: to return to main menu. \n1: View your Orders. \n2: enter a new order details. \n3: update an existing order's status. \n4: update an existing order's details. \n5: delete an order.\n"
     print(order_menu_message)
 
 

@@ -52,7 +52,7 @@ def order_menu(choice):
             break
 
         elif num == '1':
-            join_table()
+            view_order_table()
             print('................................................................\n')
 
         elif num == '2':
@@ -64,7 +64,7 @@ def order_menu(choice):
             print('................................................................\n')
 
         elif num == '4':
-            update_row(choice)
+            update_order_row(choice)
             print('................................................................\n')
 
         elif num == '5':
