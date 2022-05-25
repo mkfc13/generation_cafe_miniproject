@@ -88,7 +88,6 @@ while True:
         print_product_menu_logo()
         selected_menu(int(choice))
     elif choice == '2':
-        current_menu = 2
         print_courier_menu_logo()
         selected_menu(int(choice))
     elif choice == '3':

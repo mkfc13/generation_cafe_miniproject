@@ -1,5 +1,3 @@
-
-
 def print_cafe_logo():
     cafe_logo = ("""
  _______                                               ______           ___        
