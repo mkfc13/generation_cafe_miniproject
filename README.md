@@ -94,15 +94,12 @@ User may input the corresponding Order ID to choose which Order the user wanted 
 
 Once an order is selected, user will be prompted to type in the **exact** detail the user want to edit as below. 
 
-- ID
 - Customer
 - Courier
 - Status
 - Product
-- Total_Price
 
 User are allowed to edit all of the above.
->ID, User can change the ID of the Order, but duplicated will result in an error.
 
 >Customer, User can change the customer of the order to another existing customer. Allowing the user to input a new customer will be implemented in future version.
 
@@ -112,7 +109,6 @@ User are allowed to edit all of the above.
 
 >Product, User can change the product purchased by the customer in here, this will also update the Total Price of the order.
 
->Total_Price, User can change the value of the order's total price. Maybe it's an additional tip from the customer. Or maybe you are overcharging the customer, you evil bugger.
 
 As mentioned Option 4 is Work-in-Progress and little to none error handling was made here, and it will be implemented in future version.
 
