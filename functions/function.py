@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 
 table_name = ['Product', 'Courier', 'Orders', 'Status','Customer']
-column_name = [['ID', 'Product', 'Price'], ['ID', 'Courier', 'Phone'], ['ID', 'Customer', 'Courier', 'Status', 'Product', 'Total_Price'], ['ID', 'order_status'], ['ID', 'Customer_Name',
+column_name = [['ID', 'Product', 'Price'], ['ID', 'Courier', 'Phone'], ['Customer', 'Courier', 'Status', 'Product'], ['ID', 'order_status'], ['ID', 'Customer_Name',
                                                                                                                                                             'Customer_Address', 'Customer_Phone']]
 
 # To-Do-List
@@ -13,6 +13,7 @@ column_name = [['ID', 'Product', 'Price'], ['ID', 'Courier', 'Phone'], ['ID', 'C
 # error handle Update Order function.
 # make a product list so that the order show the product purchased rather than the ID.
 # finish my README installation guide.
+
 
 # Functions to ensuere that the user input is within the available list.
 def string_input(new_list):
@@ -27,9 +28,8 @@ def string_input(new_list):
             f'Invalid options.\nPlease choose from the following list:{new_list}')
 
 
-
 # Establish connection to the database
-load_dotenv()
+load_dotenv() 
 host = os.environ.get("mysql_host")
 user = os.environ.get("mysql_user")
 password = os.environ.get("mysql_pass")
@@ -41,23 +41,6 @@ connection = pymysql.connect(host=host,
                              database=database)
 cursor = connection.cursor()
 
-
-def list_order_id():
-    order_id = []
-    cursor.execute("SELECT ID FROM Orders WHERE Status !=4 AND Status !=5")
-    rows = cursor.fetchall()
-    for row in rows:
-        order_id.append(str(row).strip("(),''"))
-    while True:
-        user_input = input(
-            'Choose the Order No. for the order status you want to update:\n')
-        for x in order_id:
-            if user_input == x:
-                return user_input
-            else:
-                continue
-        print(
-            f'Invalid options.\nPlease choose from the following list:{order_id}')
 
 # prints out the chosen table, currently only product and courier works, the others is weird
 def select_table(choice):
@@ -71,7 +54,7 @@ def select_table(choice):
         print(row)
 
 
-# Show the list of order with the customer's name, courier assigned, status and the product purchased and total to pay.
+# Show the current list of order with the customer's name, courier assigned, status and the product purchased and total to pay.
 def view_current_order():
     sql = '''
             SELECT Orders.ID, Customer.Customer_Name, Courier.Courier, Status.order_status, Orders.Product, Orders.Total_Price
@@ -84,11 +67,12 @@ def view_current_order():
     cursor.execute(sql)
     rows = cursor.fetchall()
     print(table_name[2])
-    print(column_name[2])
+    print("['ID', 'Customer', 'Courier', 'Status', 'Product', 'Total_Price']")
     for row in rows:
         print(row)
 
 
+# Show the list of order with the customer's name, courier assigned, status and the product purchased and total to pay.
 def view_order_table():
     while True:
         selection = input(
@@ -121,7 +105,7 @@ def view_order_table():
             LEFT JOIN Customer ON Customer.ID = Orders.Customer
             LEFT JOIN Courier ON Courier.ID = Orders.Courier
             LEFT JOIN Status ON Status.ID = Orders.Status
-            ORDER BY Status
+            ORDER BY ID
             '''
         else:
             print('Invalid Option. Return to Order Menu.\n')
@@ -129,7 +113,7 @@ def view_order_table():
         cursor.execute(sql)
         rows = cursor.fetchall()
         print(table_name[2])
-        print(column_name[2])
+        print("['ID', 'Customer', 'Courier', 'Status', 'Product', 'Total_Price']")
         for row in rows:
             print(row)
         break
@@ -234,6 +218,24 @@ def create_new_order():
     connection.commit()
 
 
+# print out a list of order id
+def list_order_id():
+    order_id = []
+    cursor.execute("SELECT ID FROM Orders WHERE Status !=4 AND Status !=5")
+    rows = cursor.fetchall()
+    for row in rows:
+        order_id.append(str(row).strip("(),''"))
+    while True:
+        user_input = input(
+            'Choose the Order No. for the order status you want to update:\n')
+        for x in order_id:
+            if user_input == x:
+                return user_input
+            else:
+                continue
+        print(
+            f'Invalid options.\nPlease choose from the following list:{order_id}')
+
 
 # update an order's status. need to fix
 def update_order_status():
@@ -247,6 +249,7 @@ def update_order_status():
     connection.commit()
 
 
+# function to add all the total price of user input product.
 def total_price(input_list):
     cursor.execute("SELECT * from Product")
     products = cursor.fetchall()
@@ -260,6 +263,7 @@ def total_price(input_list):
     return new_price
 
 
+# function to update the order
 def update_order_row(choice):
     view_current_order()
     selected_order_id = int(input(
@@ -297,6 +301,7 @@ def update_order_row(choice):
         connection.commit()
 
 
+# function that can make phone into +44 00000 00000 format
 def sort_phone(phone_num):
     if phone_num == "":
         return ""

@@ -94,5 +94,9 @@ while True:
     elif choice == '3':
         print_order_menu_logo()
         order_menu(int(choice))
+    elif choice == '4':
+        select_table(int(choice))
+    elif choice == '5':
+        select_table(int(choice))
     else:
         print('Please choose only the following options:\n')
